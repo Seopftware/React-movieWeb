@@ -21,8 +21,24 @@ const movies = [
 ];
 
 class App extends Component {
+
+  // will mount -> did render -> did mount
+  // component가 will mount 작업을 진행할 때, api에 작업을 요청할 것이다
+  // (1) will mount를 보면 사이클이 시작되었음을 알게되고
+  componentWillMount(){
+      console.log("will mount")
+  }
+
+  // (3) 성공적으로 리액트 세계에 컴포넌트가 자리 잡았음을 알게 된다.
+  componentDidMount(){
+      console.log("did mount")
+  }
+
+  // (2) render를 보면 이제 컴포넌트가 리액트 세계에 존재하게 되었음을 알게되고
   render() {
-    return (
+      console.log("did render")
+
+      return (
         // arr의 element를 토대로 한 컴포넌트
         // index는 현재 제공하는 리스트의 숫자를 의미한다.
       <div className="App">
