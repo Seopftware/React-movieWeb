@@ -3,28 +3,25 @@ import './App.css';
 import Movie from './Movie';
 
 
-// movies는 arr이다. arr에는 map이라는 기능이있다.
-// Array.prototype.map() 참고 (developer.mozilla.org)
-const movies = [
-    {
-        title: "Jaekjeon",
-        poster: 'http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg'
-    },
-    {
-        title: "GongJo",
-        poster: 'https://upload.wikimedia.org/wikipedia/ko/thumb/c/c1/%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg/250px-%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg'
-    },
-    {
-        title: "Dokjeon",
-        poster: 'https://img.pooq.co.kr/movieImg/MV_CT01/4/MV_CT01_MBC000012064_240.jpg'
-    }
-];
-
 class App extends Component {
 
   state = {
-      greeting: "Hello!"
-  }
+      greeting: "Hello!",
+      movies: [
+          {
+              title: "Jaekjeon",
+              poster: 'http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg'
+          },
+          {
+              title: "GongJo",
+              poster: 'https://upload.wikimedia.org/wikipedia/ko/thumb/c/c1/%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg/250px-%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg'
+          },
+          {
+              title: "Dokjeon",
+              poster: 'https://img.pooq.co.kr/movieImg/MV_CT01/4/MV_CT01_MBC000012064_240.jpg'
+          }
+      ]
+  };
 
   // will mount -> did render -> did mount
   // component가 will mount 작업을 진행할 때, api에 작업을 요청할 것이다
@@ -37,15 +34,17 @@ class App extends Component {
   componentDidMount(){
       console.log("did mount")
 
-
-      // this.setState({
-      //     greeting: "Hello again!"
-      // });
-
       setTimeout(() => {
-          // state의 상태를 바꿀때는 setState를 설정 -> render 자동으로 업데이트
+          // state의 상태를 바꿀때는 setState를 설정 -> render 자동으로 업데이
           this.setState({
-              greeting: "Hello again!"
+              movies: [
+                  // 이전의 영화 리스트는 그대로 두고, 한 개의 영화를 추가하라는 뜻
+                  ...this.state.movies,
+                  {
+                      title:"fourth",
+                      poster: "http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg"
+                  }
+              ]
           })
       }, 5000)
   }
@@ -58,8 +57,7 @@ class App extends Component {
         // arr의 element를 토대로 한 컴포넌트
         // index는 현재 제공하는 리스트의 숫자를 의미한다.
       <div className="App">
-          {this.state.greeting}
-          {movies.map((movie, index) =>{
+          {this.state.movies.map((movie, index) =>{
               return <Movie title={movie.title} poster={movie.poster} key={index}/>
               })};
       </div>

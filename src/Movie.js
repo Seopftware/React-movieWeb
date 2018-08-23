@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import PropTypes from 'prop-types'; // 원래는 React에서 PropTypes를 제공해주었으나, 지금은 제공하지 않기 때문에 yarn을 통해 따로 설치가 필요
+import PropTypes from 'prop-types'; // 원래는 React에서 PropTypes를 제공해주었으나, 지금은 제공하지 않기 때문에 yarn을 통해 따로 설치
 import './Movie.css';
 
 // App 이라는 대빵 컴포넌트가 있고,
@@ -43,7 +43,7 @@ class MoviePoster extends Component{
     };
 
     render() {
-        // console.log(this.props);
+        console.log(this.props);
 
         return(
             <img src={this.props.poster}/>
