@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 import './Movie.css';
 
 // App 이라는 대빵 컴포넌트가 있고,
@@ -8,6 +9,15 @@ import './Movie.css';
 // 컴포넌트는 항상 render & return 해야한다.
 // JSX의 명령을 실행시키기 위해서는 {}를 꼭 쳐야한다.
 class Movie extends Component{
+
+    static propTypes = {
+
+        // 만약, App의 컴포넌트에 title 값이 비어있다면, err를 뱉어낸다.
+        title: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired
+    };
+
+
     render() {
 
         // console.log(this.props);
@@ -24,6 +34,14 @@ class Movie extends Component{
 
 // 큰 컴포넌트 안에 작은 컴포넌트를 집어넣는 방식으로 작업 진행
 class MoviePoster extends Component{
+
+    static propTypes = {
+
+        // 만약, App의 컴포넌트에 title 값이 비어있다면, err를 뱉어낸다.
+        // 이런식으로 부모로 부터 받는 데이터를 체크할 수 있다.
+        poster: PropTypes.string.isRequired
+    };
+
     render() {
         console.log(this.props);
 
