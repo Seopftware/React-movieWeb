@@ -6,57 +6,53 @@ import Movie from './Movie';
 class App extends Component {
 
   state = {
-  }
+  };
 
-
-  // will mount -> did render -> did mount
-  // component가 will mount 작업을 진행할 때, api에 작업을 요청할 것이다
-  // (1) will mount를 보면 사이클이 시작되었음을 알게되고
   componentWillMount(){
-      console.log("will mount");
   }
 
-  // (3) 성공적으로 리액트 세계에 컴포넌트가 자리 잡았음을 알게 된다.
   componentDidMount(){
-      console.log("did mount");
-      // API의 못생긴 데이터를 response 체크 => json으로 변환 => 콘솔로 확인
-      fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
-          .then(response => response.json())
-          .then(json => console.log(json))
-          .catch(err => console.log(err))
-
+      this._getMovies()
   }
 
-  // _ 를 넣는 이유는 리액트 자체의 기능이 많기 때문에 구분 시켜 주기 위해서이다.
-  // 따라서, 내가 만든 함수에는 _ 를 붙이는 게 좋다.
+  // asynchronous function
+  _getMovies = async () => {
+      // 함수 앞에 await를 붙이면 작업이 성공적으로 끝나는 것을 기다리는 것이 아니라, 작업 자체가 끝나기를 기다린다.
+      const movies = await this._callApi();
+      this.setState({
+          movies
+      })
+  }
+
+  // _callApi()는 fetch promise를 return 함. return value는 json 안의 movies가 있는 data라는 이름의 object이다.
+  _callApi = () => {
+      return fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
+          .then(response => response.json())
+          .then(json => json.data.movies)
+          .catch(err => console.log(err))
+  };
+
   _renderMovies = () => {
-      // movies를 출력할 때 정렬된 array를 보여준다.
-      const movies = this.state.movies.map((movie, index) => {
-          return <Movie title={movie.title} poster={movie.poster} key={index}/>
+      // component의 key는 index를 사용하지 않는 것이 좋다. => 느리기 때문이다.
+      const movies = this.state.movies.map(movie => {
+          console.log(movie)
+          return <Movie
+              title={movie.title}
+              poster={movie.medium_cover_image}
+              genre={movie.genres}
+              synopsis={movie.synopsis}
+              key={movie.id}/>
       });
 
       return movies;
-
-      // 위의 코드가 작동한다면 아래의 코드와 같음
-      // / {[
-      //     <Movie title={movies[0].title} poster={movies[0].poster}/>,
-      //     <Movie title={movies[1].title} poster={movies[1].poster}/>,
-      //     <Movie title={movies[2].title} poster={movies[2].poster}/>
-      // ]};
   };
 
-  // (2) render를 보면 이제 컴포넌트가 리액트 세계에 존재하게 되었음을 알게되고
   render() {
-      console.log("did render")
 
       return (
-        // arr의 element를 토대로 한 컴포넌트
-        // index는 현재 제공하는 리스트의 숫자를 의미한다.
       <div className="App">
           {this.state.movies ? this._renderMovies() : "loading"}
       </div>
-
-
     );
   }
 }
