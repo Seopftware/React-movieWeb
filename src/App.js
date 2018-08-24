@@ -19,29 +19,12 @@ class App extends Component {
   // (3) 성공적으로 리액트 세계에 컴포넌트가 자리 잡았음을 알게 된다.
   componentDidMount(){
       console.log("did mount");
+      // API의 못생긴 데이터를 response 체크 => json으로 변환 => 콘솔로 확인
+      fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => console.log(err))
 
-      setTimeout(() => {
-          this.setState({
-              movies: [
-                  {
-                      title: "Jaekjeon",
-                      poster: 'http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg'
-                  },
-                  {
-                      title: "GongJo",
-                      poster: 'https://upload.wikimedia.org/wikipedia/ko/thumb/c/c1/%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg/250px-%EC%98%81%ED%99%94_%EA%B3%B5%EC%A1%B0.jpg'
-                  },
-                  {
-                      title: "Dokjeon",
-                      poster: 'https://img.pooq.co.kr/movieImg/MV_CT01/4/MV_CT01_MBC000012064_240.jpg'
-                  },
-                  {
-                      title:"Fourth",
-                      poster: "http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg"
-                  }
-              ]
-          });
-      }, 5000);
   }
 
   // _ 를 넣는 이유는 리액트 자체의 기능이 많기 때문에 구분 시켜 주기 위해서이다.
