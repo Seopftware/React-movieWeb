@@ -13,12 +13,12 @@ class App extends Component {
   // component가 will mount 작업을 진행할 때, api에 작업을 요청할 것이다
   // (1) will mount를 보면 사이클이 시작되었음을 알게되고
   componentWillMount(){
-      console.log("will mount")
+      console.log("will mount");
   }
 
   // (3) 성공적으로 리액트 세계에 컴포넌트가 자리 잡았음을 알게 된다.
   componentDidMount(){
-      console.log("did mount")
+      console.log("did mount");
 
       setTimeout(() => {
           this.setState({
@@ -36,11 +36,11 @@ class App extends Component {
                       poster: 'https://img.pooq.co.kr/movieImg/MV_CT01/4/MV_CT01_MBC000012064_240.jpg'
                   },
                   {
-                      title:"fourth",
+                      title:"Fourth",
                       poster: "http://newsimg.sedaily.com/2017/09/01/1OKUWGCY4E_1.jpg"
                   }
               ]
-          })
+          });
       }, 5000);
   }
 
@@ -50,7 +50,7 @@ class App extends Component {
       // movies를 출력할 때 정렬된 array를 보여준다.
       const movies = this.state.movies.map((movie, index) => {
           return <Movie title={movie.title} poster={movie.poster} key={index}/>
-      })
+      });
 
       return movies;
 
